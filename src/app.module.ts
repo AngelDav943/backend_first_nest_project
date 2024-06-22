@@ -3,13 +3,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { User } from './repository/user/user.entity';
-import { UserType } from './repository/user/user-type.entity';
+import { ForumModule } from './modules/forum/forum.module';
 import { UserModule } from './modules/user/user.module';
+import { CourseModule } from './modules/course/course.module';
 
 @Module({
   imports: [
     UserModule,
+    CourseModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -19,7 +20,8 @@ import { UserModule } from './modules/user/user.module';
       database: 'backend1',
       autoLoadEntities: true,
       synchronize: true,
-    })
+    }),
+    ForumModule
   ],
   controllers: [AppController],
   providers: [AppService],

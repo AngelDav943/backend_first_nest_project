@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserType } from 'src/repository/user/user-type.entity';
-import { User } from 'src/repository/user/user.entity';
 import { Repository } from 'typeorm';
+import { UserType } from './entities/user-type.entity';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class UserService {
@@ -14,11 +16,25 @@ export class UserService {
         private userRepository: Repository<User>
     ) { }
 
-    getAllUserTypes() {
-        return this.userTypeRepository.find({ relations:['users'] });
+    async create(createUserDto: CreateUserDto) {
+        const createdUser = await this.userRepository.save(createUserDto)
+        return createdUser.id;
     }
 
-    getAllUsers() {
+    findAll() {
         return this.userRepository.find({ relations:['usertype'] });
+    }
+
+    findOne(id: number) {
+        return this.userRepository.findOneBy({ id });
+    }
+
+    async update(id: number, updateUserDto: UpdateUserDto) {
+        const response = await this.userRepository.update(id, updateUserDto)
+        return response.affected > 0
+    }
+
+    remove(id: number) {
+        return `This action removes a #${id} user`;
     }
 }

@@ -1,21 +1,20 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { User } from "./user.entity";
+import { Course } from "./course.entity";
 
 @Entity()
-export class UserType {
+export class CourseState {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
     name: string;
 
+    @OneToMany(() => Course, (course) => course.state)
+    @JoinColumn({referencedColumnName: 'id', name: 'courses'})
+    courses: Course[];
+
     @CreateDateColumn()
     createddate: number;
     @CreateDateColumn()
     updateddate: number;
-
-    @OneToMany(() => User, (user) => user.usertype)
-    @JoinColumn({referencedColumnName: 'id', name: 'userType'})
-    users: User[];
-
 }

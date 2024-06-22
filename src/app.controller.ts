@@ -1,6 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
-import { UserType } from './repository/user/user-type.entity';
 
 @Controller()
 export class AppController {
