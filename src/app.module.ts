@@ -16,7 +16,7 @@ import { CourseModule } from './modules/course/course.module';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: '',
+      password: 'root',
       database: 'backend1',
       autoLoadEntities: true,
       synchronize: true,
