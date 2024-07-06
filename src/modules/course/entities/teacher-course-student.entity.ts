@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "src/modules/user/entities/user.entity";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class TeacherCourseStudent {
@@ -7,11 +8,13 @@ export class TeacherCourseStudent {
 
     @Column()
     teacherCourse: number;
-    @Column()
+
+    @ManyToOne(() => User)
+    @JoinColumn({ referencedColumnName: 'id', name: 'user' })
     user: number;
 
     @CreateDateColumn()
-    createddate: number;
-    @CreateDateColumn()
-    updateddate: number;
+    createddate: Date;
+    @UpdateDateColumn()
+    updateddate: Date;
 }

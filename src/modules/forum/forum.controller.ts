@@ -17,6 +17,12 @@ export class ForumController {
     return this.forumService.findAll();
   }
 
+
+  @Get('messages/:id')
+  findForumMessages(@Param('id') id: string) {
+    return this.forumService.findAllMessages(+id);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.forumService.findOne(+id);

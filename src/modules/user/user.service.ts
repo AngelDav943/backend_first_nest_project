@@ -26,7 +26,7 @@ export class UserService {
     }
 
     findOne(id: number) {
-        return this.userRepository.findOneBy({ id });
+        return this.userRepository.findOne({ where: {id} });
     }
 
     async update(id: number, updateUserDto: UpdateUserDto) {
@@ -39,3 +39,4 @@ export class UserService {
         return response.affected > 0;
     }
 }
+

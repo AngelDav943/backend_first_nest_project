@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ForumModule } from './modules/forum/forum.module';
 import { UserModule } from './modules/user/user.module';
 import { CourseModule } from './modules/course/course.module';
+import { EvaluationModule } from './modules/evaluation/evaluation.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { CourseModule } from './modules/course/course.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    ForumModule
+    ForumModule,
+    EvaluationModule
   ],
   controllers: [AppController],
   providers: [AppService],
