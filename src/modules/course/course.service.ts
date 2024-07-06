@@ -17,18 +17,18 @@ export class CourseService {
     private courseStateRepository: Repository<CourseState>,
     @InjectRepository(TeacherCourse)
     private teacherCourseRepository: Repository<TeacherCourse>,
-  ) {}
+  ) { }
 
   create(createCourseDto: CreateCourseDto) {
     return this.courseRepository.save(createCourseDto);
   }
 
   findAll() {
-    return this.courseRepository.find({relations: ['state']});
+    return this.courseRepository.find({ relations: ['state'] });
   }
 
   findOne(id: number) {
-    return this.courseRepository.findOne({where: {id}})
+    return this.courseRepository.findOne({ where: { id } })
   }
 
   update(id: number, updateCourseDto: UpdateCourseDto) {
@@ -40,10 +40,10 @@ export class CourseService {
   }
 
   findStates() {
-    return this.courseStateRepository.find({relations: ['courses']});
+    return this.courseStateRepository.find({ relations: ['courses'] });
   }
 
   findTeacherCourses() {
-    return this.teacherCourseRepository.find({relations: ['course', 'teacher', 'students']});
+    return this.teacherCourseRepository.find({ relations: ['course', 'teacher', 'students'] });
   }
 }

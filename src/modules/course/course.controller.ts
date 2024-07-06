@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { CourseService } from './course.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
@@ -12,9 +12,19 @@ export class CourseController {
     return this.courseService.create(createCourseDto);
   }
 
-  @Get()
+  @Get('getAll')
   findAll() {
     return this.courseService.findAll();
+  }
+
+  @Get('states')
+  findStates() {
+    return this.courseService.findStates();
+  }
+
+  @Get('teacherCourses')
+  findTeacherCourses() {
+    return this.courseService.findTeacherCourses();
   }
 
   @Get(':id')
