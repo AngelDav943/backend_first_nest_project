@@ -12,7 +12,7 @@ export class CourseController {
     return this.courseService.create(createCourseDto);
   }
 
-  @Get('getAll')
+  @Get()
   findAll() {
     return this.courseService.findAll();
   }
@@ -25,6 +25,11 @@ export class CourseController {
   @Get('teacherCourses')
   findTeacherCourses() {
     return this.courseService.findTeacherCourses();
+  }
+
+  @Get('teacherCourses/:id')
+  findOneTeacherCourse(@Param('id') id: string) {
+    return this.courseService.findOneTeacherCourse(+id);
   }
 
   @Get(':id')

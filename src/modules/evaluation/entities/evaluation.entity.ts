@@ -1,5 +1,5 @@
 import { Course } from "src/modules/course/entities/course.entity";
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Evaluation {
@@ -13,7 +13,7 @@ export class Evaluation {
     description: string;
 
     @CreateDateColumn()
-    createddate: number;
-    @CreateDateColumn()
-    updateddate: number;
+    createddate: Date;
+    @UpdateDateColumn()
+    updateddate: Date;
 }

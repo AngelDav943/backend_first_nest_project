@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { User } from "./user.entity";
 
 
@@ -11,9 +11,9 @@ export class UserType {
     name: string;
 
     @CreateDateColumn()
-    createddate: number;
-    @CreateDateColumn()
-    updateddate: number;
+    createddate: Date;
+    @UpdateDateColumn()
+    updateddate: Date;
 
     @OneToMany(() => User, (user) => user.usertype)
     @JoinColumn({referencedColumnName: 'id', name: 'userType'})

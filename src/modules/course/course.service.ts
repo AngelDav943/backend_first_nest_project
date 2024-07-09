@@ -46,4 +46,11 @@ export class CourseService {
   findTeacherCourses() {
     return this.teacherCourseRepository.find({ relations: ['course', 'teacher', 'students'] });
   }
+
+  findOneTeacherCourse(id: number) {
+    return this.teacherCourseRepository.findOne({
+      relations: ['course', 'teacher', 'students'],
+      where: { id }
+    });
+  }
 }

@@ -7,6 +7,8 @@ import { ForumModule } from './modules/forum/forum.module';
 import { UserModule } from './modules/user/user.module';
 import { CourseModule } from './modules/course/course.module';
 import { EvaluationModule } from './modules/evaluation/evaluation.module';
+import { TaskModule } from './modules/task/task.module';
+import { FileModule } from './modules/file/file.module';
 
 @Module({
   imports: [
@@ -23,7 +25,9 @@ import { EvaluationModule } from './modules/evaluation/evaluation.module';
       synchronize: true,
     }),
     ForumModule,
-    EvaluationModule
+    EvaluationModule,
+    TaskModule,
+    FileModule
   ],
   controllers: [AppController],
   providers: [AppService],

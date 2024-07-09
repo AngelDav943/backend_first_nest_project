@@ -1,5 +1,6 @@
+import { TaskStudent } from "src/modules/task/entities/task-student.entity";
 import { User } from "src/modules/user/entities/user.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class TeacherCourseStudent {
@@ -10,8 +11,7 @@ export class TeacherCourseStudent {
     teacherCourse: number;
 
     @ManyToOne(() => User)
-    @JoinColumn({ referencedColumnName: 'id', name: 'user' })
-    user: number;
+    user: User;
 
     @CreateDateColumn()
     createddate: Date;

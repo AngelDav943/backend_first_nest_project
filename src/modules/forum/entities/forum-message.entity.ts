@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Forum } from "./forum.entity";
 import { User } from "src/modules/user/entities/user.entity";
 
@@ -17,7 +17,7 @@ export class ForumMessage {
     user: User;
 
     @CreateDateColumn()
-    createddate: number;
-    @CreateDateColumn()
-    updateddate: number;
+    createddate: Date;
+    @UpdateDateColumn()
+    updateddate: Date;
 }

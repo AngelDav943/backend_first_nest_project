@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { UserType } from "./user-type.entity";
 
 @Entity()
@@ -23,7 +23,7 @@ export class User {
     birthday: Date;
     @CreateDateColumn()
     createddate: Date;
-    @CreateDateColumn()
+    @UpdateDateColumn()
     updateddate: Date;
 
     @ManyToOne(() => UserType, (userType) => userType.users)

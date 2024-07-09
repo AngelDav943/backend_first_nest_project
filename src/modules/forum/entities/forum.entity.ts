@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { ForumMessage } from "./forum-message.entity";
 import { Course } from "src/modules/course/entities/course.entity";
 
@@ -13,13 +13,14 @@ export class Forum {
     description: string;
 
     @OneToMany(() => Course, (course) => course.forums)
-    course: number;
+    course: Course;
 
     @OneToMany(() => ForumMessage, (message) => message.forum)
     messages: ForumMessage;
 
     @CreateDateColumn()
-    createddate: number;
-    @CreateDateColumn()
-    updateddate: number;
+    createddate: Date;
+
+    @UpdateDateColumn()
+    updateddate: Date;
 }

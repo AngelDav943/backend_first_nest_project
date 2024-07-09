@@ -1,6 +1,7 @@
 import { User } from "src/modules/user/entities/user.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Course } from "./course.entity";
+import { Task } from "src/modules/task/entities/task.entity";
 
 @Entity()
 export class TeacherCourse {
@@ -31,6 +32,9 @@ export class TeacherCourse {
         }
     })
     students: User[];
+
+    @OneToMany(() => Task, (task) => task.teacherCourse)
+    tasks: Task[];
 
     @Column()
     hours: number;
