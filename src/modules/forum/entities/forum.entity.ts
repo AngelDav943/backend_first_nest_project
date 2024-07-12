@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { ForumMessage } from "./forum-message.entity";
 import { Course } from "src/modules/course/entities/course.entity";
 
@@ -12,7 +12,7 @@ export class Forum {
     @Column()
     description: string;
 
-    @OneToMany(() => Course, (course) => course.forums)
+    @ManyToOne(() => Course, (course) => course.forums)
     course: Course;
 
     @OneToMany(() => ForumMessage, (message) => message.forum)

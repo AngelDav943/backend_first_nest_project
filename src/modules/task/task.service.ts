@@ -21,14 +21,27 @@ export class TaskService {
 
   findAll() {
     return this.taskRepository.find({
-      relations: ["teacherCourse"]
+      relations: {
+        "files": true,
+        "teacherCourse": {
+          "course": true,
+          "teacher": true,
+          "students": true
+        }
+      }
     });
   }
 
   findOne(id: number) {
     return this.taskRepository.findOne({
       where: {id},
-      relations: ["teacherCourse"]
+      relations: {
+        "teacherCourse": {
+          "course": true,
+          "teacher": true,
+          "students": true
+        }
+      }
     });
   }
 

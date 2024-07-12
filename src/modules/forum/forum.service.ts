@@ -21,7 +21,7 @@ export class ForumService {
 
   findAll() {
     return this.forumRepository.find({
-      relations: ['messages']
+      relations: ['messages', 'course']
     });
   }
 
@@ -35,7 +35,9 @@ export class ForumService {
   }
 
   findOne(id: number) {
-    return this.forumRepository.findOne({ where: { id: id } })
+    return this.forumRepository.findOne({
+      where: { id: id }
+    })
   }
 
   update(id: number, updateForumDto: UpdateForumDto) {

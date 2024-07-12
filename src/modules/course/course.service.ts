@@ -24,11 +24,23 @@ export class CourseService {
   }
 
   findAll() {
-    return this.courseRepository.find({ relations: ['state'] });
+    return this.courseRepository.find({
+      // relations: ['state', 'evaluations', 'forums']
+      relations: {
+        state: true,
+        evaluations: true,
+        forums: {
+          messages: true
+        }
+      }
+    });
   }
 
   findOne(id: number) {
-    return this.courseRepository.findOne({ where: { id } })
+    return this.courseRepository.findOne({
+      where: { id },
+      relations: ['state', 'evaluations', 'forums']
+    })
   }
 
   update(id: number, updateCourseDto: UpdateCourseDto) {
@@ -40,11 +52,15 @@ export class CourseService {
   }
 
   findStates() {
-    return this.courseStateRepository.find({ relations: ['courses'] });
+    return this.courseStateRepository.find({
+      relations: ['course', 'state']
+    });
   }
 
   findTeacherCourses() {
-    return this.teacherCourseRepository.find({ relations: ['course', 'teacher', 'students'] });
+    return this.teacherCourseRepository.find({
+      relations: ['course', 'teacher', 'students']
+    });
   }
 
   findOneTeacherCourse(id: number) {

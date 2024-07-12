@@ -18,11 +18,16 @@ export class EvaluationService {
   }
 
   findAll() {
-
+    return this.EvaluationRepository.find({
+      relations: ["course"]
+    });
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} evaluation`;
+    return this.EvaluationRepository.findOne({
+      relations: ["course"],
+      where: { id }
+    })
   }
 
   update(id: number, updateEvaluationDto: UpdateEvaluationDto) {
