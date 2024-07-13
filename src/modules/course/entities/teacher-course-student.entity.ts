@@ -14,7 +14,7 @@ export class TeacherCourseStudent {
 
     @ManyToOne(() => User)
     @JoinColumn({name:'student', foreignKeyConstraintName:'id'})
-    user: User;
+    student: User;
 
     @CreateDateColumn()
     createddate: Date;

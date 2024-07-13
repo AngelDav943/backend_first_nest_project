@@ -25,7 +25,7 @@ export class TaskService {
       relations: {
         "answers": {
           "teacherCourseStudent": {
-            user: true
+            student: true
           },
           "files":true
         },
@@ -41,7 +41,7 @@ export class TaskService {
     return this.taskStudentRepository.find({
       relations: {
         "teacherCourseStudent": {
-          "user": true,
+          "student": true,
           "teacherCourse": true
         },
         "task": true
