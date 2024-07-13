@@ -22,13 +22,13 @@ export class TeacherCourse {
         joinColumn: {
             name: 'teacherCourse',
             referencedColumnName: 'id',
-            foreignKeyConstraintName: 'teacher_course_student_ibfk_1'
+            foreignKeyConstraintName: 'FK_teacher_course_student_teacher_course'
         },
         inverseJoinColumn:
         {
             name: 'student',
             referencedColumnName: 'id',
-            foreignKeyConstraintName: 'teacher_course_student_ibfk_2'
+            foreignKeyConstraintName: 'FK_teacher_course_student_user'
         }
     })
     students: User[];

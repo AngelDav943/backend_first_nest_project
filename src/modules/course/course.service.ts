@@ -19,8 +19,9 @@ export class CourseService {
     private teacherCourseRepository: Repository<TeacherCourse>,
   ) { }
 
-  create(createCourseDto: CreateCourseDto) {
-    return this.courseRepository.save(createCourseDto);
+  async create(createCourseDto: CreateCourseDto) {
+      const createdCourse = await this.courseRepository.save(createCourseDto)
+      return createdCourse.id;
   }
 
   findAll() {

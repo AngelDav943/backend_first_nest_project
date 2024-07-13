@@ -13,8 +13,9 @@ export class EvaluationService {
     private EvaluationRepository: Repository<Evaluation>
   ) {}
 
-  create(createEvaluationDto: CreateEvaluationDto) {
-    return 'This action adds a new evaluation';
+  async create(createEvaluationDto: CreateEvaluationDto) {
+      const createdEvaluation = await this.EvaluationRepository.save(createEvaluationDto)
+      return createdEvaluation.id;
   }
 
   findAll() {
@@ -30,11 +31,13 @@ export class EvaluationService {
     })
   }
 
-  update(id: number, updateEvaluationDto: UpdateEvaluationDto) {
-    return `This action updates a #${id} evaluation`;
+  async update(id: number, updateEvaluationDto: UpdateEvaluationDto) {
+      const response = await this.EvaluationRepository.update(id, updateEvaluationDto)
+      return response.affected > 0
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} evaluation`;
+  async remove(id: number) {
+      const response = await this.EvaluationRepository.delete(id)
+      return response.affected > 0;
   }
 }

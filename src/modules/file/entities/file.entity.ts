@@ -8,11 +8,9 @@ export class FileEnt {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToMany(() => Task, (task) => task.files)
-    task: Task[];
-
-    @ManyToOne(() => User)
-    user: User;
+    @ManyToOne(() => TaskStudent, (taskStudent) => taskStudent.files)
+    // @JoinColumn({referencedColumnName:'taskStudentId', foreignKeyConstraintName:'id'})
+    taskStudent: TaskStudent;
 
     @Column()
     name: string;

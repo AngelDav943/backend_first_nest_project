@@ -15,21 +15,38 @@ export class TaskService {
     private taskStudentRepository: Repository<TaskStudent>,
   ) { }
 
-  create(createTaskDto: CreateTaskDto) {
-    return 'This action adds a new task';
+  async create(createTaskDto: CreateTaskDto) {
+      const createdTask = await this.taskRepository.save(createTaskDto)
+      return createdTask.id;
   }
 
   findAll() {
     return this.taskRepository.find({
       relations: {
-        "files": true,
+        "answers": {
+          "teacherCourseStudent": {
+            user: true
+          },
+          "files":true
+        },
         "teacherCourse": {
           "course": true,
-          "teacher": true,
-          "students": true
+          "teacher": true
         }
       }
     });
+  }
+
+  findAllAnswers() {
+    return this.taskStudentRepository.find({
+      relations: {
+        "teacherCourseStudent": {
+          "user": true,
+          "teacherCourse": true
+        },
+        "task": true
+      }
+    })
   }
 
   findOne(id: number) {
@@ -45,11 +62,13 @@ export class TaskService {
     });
   }
 
-  update(id: number, updateTaskDto: UpdateTaskDto) {
-    return `This action updates a #${id} task`;
+  async update(id: number, updateTaskDto: UpdateTaskDto) {
+      const response = await this.taskRepository.update(id, updateTaskDto)
+      return response.affected > 0
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} task`;
+  async remove(id: number) {
+      const response = await this.taskRepository.delete(id)
+      return response.affected > 0;
   }
 }

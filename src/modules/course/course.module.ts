@@ -5,10 +5,11 @@ import { CourseService } from './course.service';
 import { CourseState } from './entities/course-state.entity';
 import { Course } from './entities/course.entity';
 import { TeacherCourse } from './entities/teacher-course.entity';
+import { TeacherCourseStudent } from './entities/teacher-course-student.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Course, CourseState, TeacherCourse]),
+    TypeOrmModule.forFeature([Course, CourseState, TeacherCourse, TeacherCourseStudent])
   ],
   controllers: [CourseController],
   providers: [CourseService],

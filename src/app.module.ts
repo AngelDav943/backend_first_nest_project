@@ -22,7 +22,7 @@ import { FileModule } from './modules/file/file.module';
       password: 'root',
       database: 'backend1',
       autoLoadEntities: true,
-      synchronize: true,
+      // synchronize: true,
     }),
     ForumModule,
     EvaluationModule,

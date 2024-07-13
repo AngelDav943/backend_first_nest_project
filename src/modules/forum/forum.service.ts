@@ -5,6 +5,7 @@ import { Forum } from './entities/forum.entity';
 import { ForumMessage } from './entities/forum-message.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CreateForumMessageDto } from './dto/create-forum-message.dto';
 
 @Injectable()
 export class ForumService {
@@ -15,8 +16,14 @@ export class ForumService {
     private forumMessageRepository: Repository<ForumMessage>,
   ) { }
 
-  create(createForumDto: CreateForumDto) {
-    return 'This action adds a new forum';
+  async create(createForumDto: CreateForumDto) {
+      const createdForum = await this.forumRepository.save(createForumDto)
+      return createdForum.id;
+  }
+
+  async sendMessage(createMessageDto: CreateForumMessageDto) {
+    const createdMessage = await this.forumMessageRepository.save(createMessageDto)
+    return createdMessage.id;
   }
 
   findAll() {
@@ -40,11 +47,13 @@ export class ForumService {
     })
   }
 
-  update(id: number, updateForumDto: UpdateForumDto) {
-    return `This action updates a #${id} forum`;
+  async update(id: number, updateForumDto: UpdateForumDto) {
+    const response = await this.forumRepository.update(id, updateForumDto)
+    return response.affected > 0
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} forum`;
+  async remove(id: number) {
+    const response = await this.forumRepository.delete(id)
+    return response.affected > 0;
   }
 }

@@ -10,27 +10,33 @@ export class FileService {
   constructor(
     @InjectRepository(FileEnt)
     private fileRepository: Repository<FileEnt>
-  ) {}
+  ) { }
 
-  create(createFileDto: CreateFileDto) {
-    return 'This action adds a new file';
+  async create(createFileDto: CreateFileDto) {
+      const createdFile = await this.fileRepository.save(createFileDto)
+      return createdFile.id;
   }
 
   findAll() {
     return this.fileRepository.find({
-      relations: ["task", "user"]
+      relations: ["taskStudent"]
     })
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} file`;
+    return this.fileRepository.findOne({
+      relations: ["taskStudent"],
+      where: { id }
+    })
   }
 
-  update(id: number, updateFileDto: UpdateFileDto) {
-    return `This action updates a #${id} file`;
+  async update(id: number, updateFileDto: UpdateFileDto) {
+    const response = await this.fileRepository.update(id, updateFileDto)
+    return response.affected > 0
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} file`;
+  async remove(id: number) {
+    const response = await this.fileRepository.delete(id)
+    return response.affected > 0;
   }
 }
