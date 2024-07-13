@@ -9,7 +9,6 @@ export class FileEnt {
     id: number;
 
     @ManyToOne(() => TaskStudent, (taskStudent) => taskStudent.files)
-    // @JoinColumn({referencedColumnName:'taskStudentId', foreignKeyConstraintName:'id'})
     taskStudent: TaskStudent;
 
     @Column()
