@@ -6,6 +6,8 @@ import { UpdateCourseDto } from './dto/update-course.dto';
 import { CourseState } from './entities/course-state.entity';
 import { Course } from './entities/course.entity';
 import { TeacherCourse } from './entities/teacher-course.entity';
+import { CreateTeacherCourseDto } from './dto/create-teacher-course.dto';
+import { UpdateTeacherCourseDto } from './dto/update-teacher-course.dto';
 
 @Injectable()
 export class CourseService {
@@ -22,6 +24,11 @@ export class CourseService {
   async create(createCourseDto: CreateCourseDto) {
       const createdCourse = await this.courseRepository.save(createCourseDto)
       return createdCourse.id;
+  }
+
+  async createTeacherCourse(createTeacherCourseDto: CreateTeacherCourseDto) {
+      const createdTeacherCourse = await this.teacherCourseRepository.save(createTeacherCourseDto)
+      return createdTeacherCourse.id;
   }
 
   findAll() {
@@ -48,19 +55,37 @@ export class CourseService {
     return this.courseRepository.update(id, updateCourseDto);
   }
 
+  updateTeacherCourse(id: number, updateTeacherCourseDto: UpdateTeacherCourseDto) {
+    return this.teacherCourseRepository.update(id, updateTeacherCourseDto);
+  }
+
   remove(id: number) {
     return this.courseRepository.delete(id);
   }
 
+  removeTeacherCourse(id: number) {
+    return this.teacherCourseRepository.delete(id);
+  }
+
   findStates() {
     return this.courseStateRepository.find({
-      relations: ['course', 'state']
+      relations: {
+        courses: true,
+      }
     });
   }
 
   findTeacherCourses() {
     return this.teacherCourseRepository.find({
-      relations: ['course', 'teacher', 'students']
+      relations: {
+        course: true,
+        teacher: {
+          usertype: true
+        },
+        students: {
+          usertype: true
+        },
+      }
     });
   }
 

@@ -22,11 +22,24 @@ export class UserService {
     }
 
     findAll() {
-        return this.userRepository.find({ relations:['usertype'] });
+        return this.userRepository.find({
+            relations: ['usertype']
+        });
+    }
+
+    findAllTypes() {
+        return this.userTypeRepository.find({
+            relations: {
+                users: true
+            }
+        });
     }
 
     findOne(id: number) {
-        return this.userRepository.findOne({ where: {id} });
+        return this.userRepository.findOne({
+            relations: ['usertype'],
+            where: { id }
+        });
     }
 
     async update(id: number, updateUserDto: UpdateUserDto) {

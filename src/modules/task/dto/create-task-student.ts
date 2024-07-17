@@ -1,4 +1,4 @@
-export class CreateTaskStudentDto{
+export class CreateTaskStudentDto {
     teacherCourseId: number;
     taskId: number;
 }

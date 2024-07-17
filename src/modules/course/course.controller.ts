@@ -2,6 +2,8 @@ import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/commo
 import { CourseService } from './course.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
+import { CreateTeacherCourseDto } from './dto/create-teacher-course.dto';
+import { UpdateTeacherCourseDto } from './dto/update-teacher-course.dto';
 
 @Controller('course')
 export class CourseController {
@@ -10,6 +12,11 @@ export class CourseController {
   @Post()
   create(@Body() createCourseDto: CreateCourseDto) {
     return this.courseService.create(createCourseDto);
+  }
+
+  @Post('teacherCourses')
+  createTeacherCourse(@Body() createTeacherCourseDto: CreateTeacherCourseDto) {
+    return this.courseService.createTeacherCourse(createTeacherCourseDto);
   }
 
   @Get()
@@ -45,5 +52,15 @@ export class CourseController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.courseService.remove(+id);
+  }
+
+  @Patch('teacherCourses/:id')
+  updateTeacherCourse(@Param('id') id: string, @Body() updateTeacherCourseDto: UpdateTeacherCourseDto) {
+    return this.courseService.updateTeacherCourse(+id, updateTeacherCourseDto);
+  }
+
+  @Delete('teacherCourses/:id')
+  removeTeacherCourse(@Param('id') id: string) {
+    return this.courseService.removeTeacherCourse(+id);
   }
 }
