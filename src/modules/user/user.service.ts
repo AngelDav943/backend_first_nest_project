@@ -1,54 +1,54 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { FindOptionsWhere, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { UserType } from './entities/user-type.entity';
 import { User } from './entities/user.entity';
 
 @Injectable()
 export class UserService {
-  constructor(
-    @InjectRepository(UserType)
-    private userTypeRepository: Repository<UserType>,
+    constructor(
+        @InjectRepository(UserType)
+        private userTypeRepository: Repository<UserType>,
 
-    @InjectRepository(User)
-    private userRepository: Repository<User>,
-  ) {}
+        @InjectRepository(User)
+        private userRepository: Repository<User>,
+    ) {}
 
-  async create(createUserDto: CreateUserDto) {
-    const createdUser = await this.userRepository.save(createUserDto);
-    return createdUser.id;
-  }
+    async create(createUserDto: CreateUserDto) {
+        const createdUser = await this.userRepository.save(createUserDto);
+        return createdUser.id;
+    }
 
-  findAll() {
-    return this.userRepository.find({
-      relations: ['usertype'],
-    });
-  }
+    findAll() {
+        return this.userRepository.find({
+            relations: ['usertype'],
+        });
+    }
 
-  findAllTypes() {
-    return this.userTypeRepository.find({
-      relations: {
-        users: true,
-      },
-    });
-  }
+    findAllTypes() {
+        return this.userTypeRepository.find({
+            relations: {
+                users: true,
+            },
+        });
+    }
 
-  findOne(id: number) {
-    return this.userRepository.findOne({
-      relations: ['usertype'],
-      where: { id },
-    });
-  }
+    findOne(where: FindOptionsWhere<User> | FindOptionsWhere<User>[]) {
+        return this.userRepository.findOne({
+            relations: ['usertype'],
+            where: where,
+        });
+    }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
-    const response = await this.userRepository.update(id, updateUserDto);
-    return response.affected > 0;
-  }
+    async update(id: number, updateUserDto: UpdateUserDto) {
+        const response = await this.userRepository.update(id, updateUserDto);
+        return response.affected > 0;
+    }
 
-  async remove(id: number) {
-    const response = await this.userRepository.delete(id);
-    return response.affected > 0;
-  }
+    async remove(id: number) {
+        const response = await this.userRepository.delete(id);
+        return response.affected > 0;
+    }
 }
