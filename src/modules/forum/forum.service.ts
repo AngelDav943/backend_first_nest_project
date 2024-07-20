@@ -15,61 +15,68 @@ export class ForumService {
     private forumRepository: Repository<Forum>,
     @InjectRepository(ForumMessage)
     private forumMessageRepository: Repository<ForumMessage>,
-  ) { }
+  ) {}
 
   async create(createForumDto: CreateForumDto) {
-      const createdForum = await this.forumRepository.save(createForumDto)
-      return createdForum.id;
+    const createdForum = await this.forumRepository.save(createForumDto);
+    return createdForum.id;
   }
 
   async sendMessage(createMessageDto: CreateForumMessageDto) {
-    const createdMessage = await this.forumMessageRepository.save(createMessageDto)
+    const createdMessage =
+      await this.forumMessageRepository.save(createMessageDto);
     return createdMessage.id;
   }
 
   findAll() {
     return this.forumRepository.find({
-      relations: ['messages', 'course']
+      relations: ['messages', 'course'],
     });
   }
 
   findAllMessages(forumID: number) {
     return this.forumMessageRepository.find({
       where: {
-        forum: { id: forumID }
+        forum: { id: forumID },
       },
-      relations: ['forum']
-    })
+      relations: ['forum'],
+    });
   }
 
   findOne(id: number) {
     return this.forumRepository.findOne({
       relations: {
         messages: {
-          user: true
-        }
+          user: true,
+        },
       },
-      where: { id: id }
-    })
+      where: { id: id },
+    });
   }
 
   async update(id: number, updateForumDto: UpdateForumDto) {
-    const response = await this.forumRepository.update(id, updateForumDto)
-    return response.affected > 0
-  }
-
-  async remove(id: number) {
-    const response = await this.forumRepository.delete(id)
+    const response = await this.forumRepository.update(id, updateForumDto);
     return response.affected > 0;
   }
 
-  async updateMessage(id: number, updateForumMessageDto: UpdateForumMessageDto) {
-    const response = await this.forumMessageRepository.update(id, updateForumMessageDto)
-    return response.affected > 0
+  async remove(id: number) {
+    const response = await this.forumRepository.delete(id);
+    return response.affected > 0;
+  }
+
+  async updateMessage(
+    id: number,
+    updateForumMessageDto: UpdateForumMessageDto,
+  ) {
+    const response = await this.forumMessageRepository.update(
+      id,
+      updateForumMessageDto,
+    );
+    return response.affected > 0;
   }
 
   async removeMessage(id: number) {
-    const response = await this.forumMessageRepository.delete(id)
+    const response = await this.forumMessageRepository.delete(id);
     return response.affected > 0;
   }
 }

@@ -9,34 +9,34 @@ import { Repository } from 'typeorm';
 export class FileService {
   constructor(
     @InjectRepository(FileEnt)
-    private fileRepository: Repository<FileEnt>
-  ) { }
+    private fileRepository: Repository<FileEnt>,
+  ) {}
 
   async create(createFileDto: CreateFileDto) {
-      const createdFile = await this.fileRepository.save(createFileDto)
-      return createdFile.id;
+    const createdFile = await this.fileRepository.save(createFileDto);
+    return createdFile.id;
   }
 
   findAll() {
     return this.fileRepository.find({
-      relations: ["taskStudent"]
-    })
+      relations: ['taskStudent'],
+    });
   }
 
   findOne(id: number) {
     return this.fileRepository.findOne({
-      relations: ["taskStudent"],
-      where: { id }
-    })
+      relations: ['taskStudent'],
+      where: { id },
+    });
   }
 
   async update(id: number, updateFileDto: UpdateFileDto) {
-    const response = await this.fileRepository.update(id, updateFileDto)
-    return response.affected > 0
+    const response = await this.fileRepository.update(id, updateFileDto);
+    return response.affected > 0;
   }
 
   async remove(id: number) {
-    const response = await this.fileRepository.delete(id)
+    const response = await this.fileRepository.delete(id);
     return response.affected > 0;
   }
 }

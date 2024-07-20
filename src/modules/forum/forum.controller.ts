@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ForumService } from './forum.service';
 import { CreateForumDto } from './dto/create-forum.dto';
 import { UpdateForumDto } from './dto/update-forum.dto';
@@ -24,7 +32,6 @@ export class ForumController {
     return this.forumService.findAll();
   }
 
-
   @Get('messages/:id')
   findForumMessages(@Param('id') id: string) {
     if (isNaN(+id) == false) return this.forumService.findAllMessages(+id);
@@ -37,7 +44,8 @@ export class ForumController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateForumDto: UpdateForumDto) {
-    if (isNaN(+id) == false) return this.forumService.update(+id, updateForumDto);
+    if (isNaN(+id) == false)
+      return this.forumService.update(+id, updateForumDto);
   }
 
   @Delete(':id')
@@ -46,8 +54,12 @@ export class ForumController {
   }
 
   @Patch('messages/:id')
-  updateMessage(@Param('id') id: string, @Body() updateForumMessageDto: UpdateForumMessageDto) {
-    if (isNaN(+id) == false) return this.forumService.updateMessage(+id, updateForumMessageDto);
+  updateMessage(
+    @Param('id') id: string,
+    @Body() updateForumMessageDto: UpdateForumMessageDto,
+  ) {
+    if (isNaN(+id) == false)
+      return this.forumService.updateMessage(+id, updateForumMessageDto);
   }
 
   @Delete('messages/:id')

@@ -1,3 +1,3 @@
-import { CreateForumDto } from "./create-forum.dto";
+import { CreateForumDto } from './create-forum.dto';
 
-export type UpdateForumDto = Partial<CreateForumDto>
+export type UpdateForumDto = Partial<CreateForumDto>;

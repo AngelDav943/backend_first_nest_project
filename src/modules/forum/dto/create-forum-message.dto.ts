@@ -1,3 +1,6 @@
-import { ForumMessage } from "../entities/forum-message.entity";
+import { ForumMessage } from '../entities/forum-message.entity';
 
-export type CreateForumMessageDto = Omit<ForumMessage, "createddate" | "updateddate">
+export type CreateForumMessageDto = Omit<
+  ForumMessage,
+  'createddate' | 'updateddate'
+>;

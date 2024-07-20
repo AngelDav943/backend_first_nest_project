@@ -27,7 +27,7 @@ import { FileModule } from './modules/file/file.module';
     ForumModule,
     EvaluationModule,
     TaskModule,
-    FileModule
+    FileModule,
   ],
   controllers: [AppController],
   providers: [AppService],

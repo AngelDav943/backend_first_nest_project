@@ -1,3 +1,3 @@
 import { CreateFileDto } from './create-file.dto';
 
-export type UpdateFileDto = Partial<CreateFileDto>
+export type UpdateFileDto = Partial<CreateFileDto>;

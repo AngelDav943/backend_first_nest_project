@@ -1,3 +1,3 @@
-import { Task } from "../entities/task.entity";
+import { Task } from '../entities/task.entity';
 
-export type CreateTaskDto = Omit<Task, "createddate" | "updateddate">
+export type CreateTaskDto = Omit<Task, 'createddate' | 'updateddate'>;

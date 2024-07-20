@@ -1,3 +1,3 @@
-import { Course } from "../entities/course.entity";
+import { Course } from '../entities/course.entity';
 
-export type CreateCourseDto = Omit<Course, "createddate" | "updateddate">
+export type CreateCourseDto = Omit<Course, 'createddate' | 'updateddate'>;

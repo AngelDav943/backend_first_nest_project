@@ -13,62 +13,62 @@ export class TaskService {
     private taskRepository: Repository<Task>,
     @InjectRepository(TaskStudent)
     private taskStudentRepository: Repository<TaskStudent>,
-  ) { }
+  ) {}
 
   async create(createTaskDto: CreateTaskDto) {
-      const createdTask = await this.taskRepository.save(createTaskDto)
-      return createdTask.id;
+    const createdTask = await this.taskRepository.save(createTaskDto);
+    return createdTask.id;
   }
 
   findAll() {
     return this.taskRepository.find({
       relations: {
-        "answers": {
-          "teacherCourseStudent": {
-            student: true
+        answers: {
+          teacherCourseStudent: {
+            student: true,
           },
-          "files":true
+          files: true,
         },
-        "teacherCourse": {
-          "course": true,
-          "teacher": true
-        }
-      }
+        teacherCourse: {
+          course: true,
+          teacher: true,
+        },
+      },
     });
   }
 
   findAllAnswers() {
     return this.taskStudentRepository.find({
       relations: {
-        "teacherCourseStudent": {
-          "student": true,
-          "teacherCourse": true
+        teacherCourseStudent: {
+          student: true,
+          teacherCourse: true,
         },
-        "task": true
-      }
-    })
+        task: true,
+      },
+    });
   }
 
   findOne(id: number) {
     return this.taskRepository.findOne({
-      where: {id},
+      where: { id },
       relations: {
-        "teacherCourse": {
-          "course": true,
-          "teacher": true,
-          "students": true
-        }
-      }
+        teacherCourse: {
+          course: true,
+          teacher: true,
+          students: true,
+        },
+      },
     });
   }
 
   async update(id: number, updateTaskDto: UpdateTaskDto) {
-      const response = await this.taskRepository.update(id, updateTaskDto)
-      return response.affected > 0
+    const response = await this.taskRepository.update(id, updateTaskDto);
+    return response.affected > 0;
   }
 
   async remove(id: number) {
-      const response = await this.taskRepository.delete(id)
-      return response.affected > 0;
+    const response = await this.taskRepository.delete(id);
+    return response.affected > 0;
   }
 }

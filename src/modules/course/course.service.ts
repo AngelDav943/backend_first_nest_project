@@ -11,7 +11,6 @@ import { UpdateTeacherCourseDto } from './dto/update-teacher-course.dto';
 
 @Injectable()
 export class CourseService {
-
   constructor(
     @InjectRepository(Course)
     private courseRepository: Repository<Course>,
@@ -19,16 +18,18 @@ export class CourseService {
     private courseStateRepository: Repository<CourseState>,
     @InjectRepository(TeacherCourse)
     private teacherCourseRepository: Repository<TeacherCourse>,
-  ) { }
+  ) {}
 
   async create(createCourseDto: CreateCourseDto) {
-      const createdCourse = await this.courseRepository.save(createCourseDto)
-      return createdCourse.id;
+    const createdCourse = await this.courseRepository.save(createCourseDto);
+    return createdCourse.id;
   }
 
   async createTeacherCourse(createTeacherCourseDto: CreateTeacherCourseDto) {
-      const createdTeacherCourse = await this.teacherCourseRepository.save(createTeacherCourseDto)
-      return createdTeacherCourse.id;
+    const createdTeacherCourse = await this.teacherCourseRepository.save(
+      createTeacherCourseDto,
+    );
+    return createdTeacherCourse.id;
   }
 
   findAll() {
@@ -38,24 +39,27 @@ export class CourseService {
         state: true,
         evaluations: true,
         forums: {
-          messages: true
-        }
-      }
+          messages: true,
+        },
+      },
     });
   }
 
   findOne(id: number) {
     return this.courseRepository.findOne({
       where: { id },
-      relations: ['state', 'evaluations', 'forums']
-    })
+      relations: ['state', 'evaluations', 'forums'],
+    });
   }
 
   update(id: number, updateCourseDto: UpdateCourseDto) {
     return this.courseRepository.update(id, updateCourseDto);
   }
 
-  updateTeacherCourse(id: number, updateTeacherCourseDto: UpdateTeacherCourseDto) {
+  updateTeacherCourse(
+    id: number,
+    updateTeacherCourseDto: UpdateTeacherCourseDto,
+  ) {
     return this.teacherCourseRepository.update(id, updateTeacherCourseDto);
   }
 
@@ -71,7 +75,7 @@ export class CourseService {
     return this.courseStateRepository.find({
       relations: {
         courses: true,
-      }
+      },
     });
   }
 
@@ -80,19 +84,19 @@ export class CourseService {
       relations: {
         course: true,
         teacher: {
-          usertype: true
+          usertype: true,
         },
         students: {
-          usertype: true
+          usertype: true,
         },
-      }
+      },
     });
   }
 
   findOneTeacherCourse(id: number) {
     return this.teacherCourseRepository.findOne({
       relations: ['course', 'teacher', 'students'],
-      where: { id }
+      where: { id },
     });
   }
 }

@@ -1,27 +1,25 @@
-import { TeacherCourse } from "src/modules/course/entities/teacher-course.entity";
-import { FileEnt } from "src/modules/file/entities/file.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { TaskStudent } from "./task-student.entity";
+import { TeacherCourse } from 'src/modules/course/entities/teacher-course.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
+import { TaskStudent } from './task-student.entity';
+import { CommonEntity } from 'src/common/entity/common.entity';
 
 @Entity()
-export class Task {
-    @PrimaryGeneratedColumn()
-    id: number;
+export class Task extends CommonEntity {
+  @ManyToOne(() => TeacherCourse)
+  teacherCourse: TeacherCourse;
 
-    @ManyToOne(() => TeacherCourse)
-    teacherCourse: TeacherCourse;
+  @OneToMany(() => TaskStudent, (file) => file.task)
+  answers: TaskStudent[];
 
-    @OneToMany(() => TaskStudent, (file) => file.task)
-    answers: TaskStudent[];
+  @Column()
+  description: string;
 
-    @Column()
-    description: string;
-
-    @CreateDateColumn()
-    deadline: Date;
-
-    @CreateDateColumn()
-    createddate: Date;
-    @UpdateDateColumn()
-    updateddate: Date;
+  @CreateDateColumn()
+  deadline: Date;
 }

@@ -1,3 +1,3 @@
-import { FileEnt } from "../entities/file.entity";
+import { FileEnt } from '../entities/file.entity';
 
-export type CreateFileDto = Omit<FileEnt, "createddate" | "updateddate">
+export type CreateFileDto = Omit<FileEnt, 'createddate' | 'updateddate'>;

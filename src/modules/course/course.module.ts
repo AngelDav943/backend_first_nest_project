@@ -9,7 +9,12 @@ import { TeacherCourseStudent } from './entities/teacher-course-student.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Course, CourseState, TeacherCourse, TeacherCourseStudent])
+    TypeOrmModule.forFeature([
+      Course,
+      CourseState,
+      TeacherCourse,
+      TeacherCourseStudent,
+    ]),
   ],
   controllers: [CourseController],
   providers: [CourseService],

@@ -1,22 +1,13 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { User } from "./user.entity";
-
+import { Column, Entity, JoinColumn, OneToMany } from 'typeorm';
+import { User } from './user.entity';
+import { CommonEntity } from 'src/common/entity/common.entity';
 
 @Entity()
-export class UserType {
-    @PrimaryGeneratedColumn()
-    id: number;
+export class UserType extends CommonEntity {
+  @Column()
+  name: string;
 
-    @Column()
-    name: string;
-
-    @CreateDateColumn()
-    createddate: Date;
-    @UpdateDateColumn()
-    updateddate: Date;
-
-    @OneToMany(() => User, (user) => user.usertype)
-    @JoinColumn({referencedColumnName: 'id', name: 'userType'})
-    users: User[];
-
+  @OneToMany(() => User, (user) => user.usertype)
+  @JoinColumn({ referencedColumnName: 'id', name: 'userType' })
+  users: User[];
 }

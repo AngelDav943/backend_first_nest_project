@@ -1,4 +1,4 @@
 export class CreateTaskStudentDto {
-    teacherCourseId: number;
-    taskId: number;
+  teacherCourseId: number;
+  taskId: number;
 }

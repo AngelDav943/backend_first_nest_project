@@ -1,3 +1,3 @@
-import { CreateEvaluationDto } from "./create-evaluation.dto";
+import { CreateEvaluationDto } from './create-evaluation.dto';
 
-export type UpdateEvaluationDto = Partial<CreateEvaluationDto>
+export type UpdateEvaluationDto = Partial<CreateEvaluationDto>;

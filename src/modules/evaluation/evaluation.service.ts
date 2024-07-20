@@ -7,37 +7,40 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class EvaluationService {
-
   constructor(
     @InjectRepository(Evaluation)
-    private EvaluationRepository: Repository<Evaluation>
+    private EvaluationRepository: Repository<Evaluation>,
   ) {}
 
   async create(createEvaluationDto: CreateEvaluationDto) {
-      const createdEvaluation = await this.EvaluationRepository.save(createEvaluationDto)
-      return createdEvaluation.id;
+    const createdEvaluation =
+      await this.EvaluationRepository.save(createEvaluationDto);
+    return createdEvaluation.id;
   }
 
   findAll() {
     return this.EvaluationRepository.find({
-      relations: ["course"]
+      relations: ['course'],
     });
   }
 
   findOne(id: number) {
     return this.EvaluationRepository.findOne({
-      relations: ["course"],
-      where: { id }
-    })
+      relations: ['course'],
+      where: { id },
+    });
   }
 
   async update(id: number, updateEvaluationDto: UpdateEvaluationDto) {
-      const response = await this.EvaluationRepository.update(id, updateEvaluationDto)
-      return response.affected > 0
+    const response = await this.EvaluationRepository.update(
+      id,
+      updateEvaluationDto,
+    );
+    return response.affected > 0;
   }
 
   async remove(id: number) {
-      const response = await this.EvaluationRepository.delete(id)
-      return response.affected > 0;
+    const response = await this.EvaluationRepository.delete(id);
+    return response.affected > 0;
   }
 }

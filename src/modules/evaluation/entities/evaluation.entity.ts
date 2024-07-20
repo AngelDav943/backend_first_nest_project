@@ -1,19 +1,12 @@
-import { Course } from "src/modules/course/entities/course.entity";
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { CommonEntity } from 'src/common/entity/common.entity';
+import { Course } from 'src/modules/course/entities/course.entity';
+import { Column, Entity, ManyToOne } from 'typeorm';
 
 @Entity()
-export class Evaluation {
-    @PrimaryGeneratedColumn()
-    id: number;
+export class Evaluation extends CommonEntity {
+  @ManyToOne(() => Course, (course) => course.evaluations)
+  course: Course;
 
-    @ManyToOne(() => Course, (course) => course.evaluations)
-    course: Course;
-
-    @Column()
-    description: string;
-
-    @CreateDateColumn()
-    createddate: Date;
-    @UpdateDateColumn()
-    updateddate: Date;
+  @Column()
+  description: string;
 }

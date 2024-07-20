@@ -1,3 +1,3 @@
-import { CreateForumMessageDto } from "./create-forum-message.dto";
+import { CreateForumMessageDto } from './create-forum-message.dto';
 
-export type UpdateForumMessageDto = Partial<CreateForumMessageDto>
+export type UpdateForumMessageDto = Partial<CreateForumMessageDto>;

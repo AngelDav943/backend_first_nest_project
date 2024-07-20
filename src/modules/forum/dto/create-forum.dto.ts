@@ -1,3 +1,3 @@
-import { Forum } from "../entities/forum.entity";
+import { Forum } from '../entities/forum.entity';
 
-export type CreateForumDto = Omit<Forum, "createddate" | "updateddate">
+export type CreateForumDto = Omit<Forum, 'createddate' | 'updateddate'>;

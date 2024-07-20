@@ -1,3 +1,3 @@
-import { CreateTeacherCourseDto } from "./create-teacher-course.dto";
+import { CreateTeacherCourseDto } from './create-teacher-course.dto';
 
-export type UpdateTeacherCourseDto = Partial<CreateTeacherCourseDto>
+export type UpdateTeacherCourseDto = Partial<CreateTeacherCourseDto>;

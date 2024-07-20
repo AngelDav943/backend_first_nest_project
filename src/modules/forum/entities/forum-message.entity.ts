@@ -1,23 +1,16 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Forum } from "./forum.entity";
-import { User } from "src/modules/user/entities/user.entity";
+import { Column, Entity, ManyToOne } from 'typeorm';
+import { Forum } from './forum.entity';
+import { User } from 'src/modules/user/entities/user.entity';
+import { CommonEntity } from 'src/common/entity/common.entity';
 
 @Entity()
-export class ForumMessage {
-    @PrimaryGeneratedColumn()
-    id: number;
+export class ForumMessage extends CommonEntity {
+  @Column()
+  message: string;
 
-    @Column()
-    message: string;
+  @ManyToOne(() => Forum, (forum) => forum.messages)
+  forum: Forum;
 
-    @ManyToOne(() => Forum, (forum) => forum.messages)
-    forum: Forum;
-
-    @ManyToOne(() => User)
-    user: User;
-
-    @CreateDateColumn()
-    createddate: Date;
-    @UpdateDateColumn()
-    updateddate: Date;
+  @ManyToOne(() => User)
+  user: User;
 }

@@ -1,23 +1,15 @@
-import { TaskStudent } from "src/modules/task/entities/task-student.entity";
-import { User } from "src/modules/user/entities/user.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { TeacherCourse } from "./teacher-course.entity";
+import { User } from 'src/modules/user/entities/user.entity';
+import { Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { TeacherCourse } from './teacher-course.entity';
+import { CommonEntity } from 'src/common/entity/common.entity';
 
 @Entity()
-export class TeacherCourseStudent {
-    @PrimaryGeneratedColumn()
-    id: number;
+export class TeacherCourseStudent extends CommonEntity {
+  @ManyToOne(() => TeacherCourse)
+  @JoinColumn({ name: 'teacherCourse', foreignKeyConstraintName: 'id' })
+  teacherCourse: TeacherCourse;
 
-    @ManyToOne(() => TeacherCourse)
-    @JoinColumn({name:'teacherCourse', foreignKeyConstraintName:'id'})
-    teacherCourse: TeacherCourse;
-
-    @ManyToOne(() => User)
-    @JoinColumn({name:'student', foreignKeyConstraintName:'id'})
-    student: User;
-
-    @CreateDateColumn()
-    createddate: Date;
-    @UpdateDateColumn()
-    updateddate: Date;
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'student', foreignKeyConstraintName: 'id' })
+  student: User;
 }
