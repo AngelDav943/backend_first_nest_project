@@ -38,7 +38,7 @@ export class UserService {
     findOne(where: FindOptionsWhere<User> | FindOptionsWhere<User>[]) {
         return this.userRepository.findOne({
             relations: ['usertype'],
-            where: where,
+            where,
         });
     }
 

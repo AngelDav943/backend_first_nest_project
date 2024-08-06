@@ -1,32 +1,36 @@
+import { Exclude } from 'class-transformer';
+import { CommonEntity } from 'src/common/entity/common.entity';
 import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinColumn,
-  ManyToOne,
+	Column,
+	CreateDateColumn,
+	Entity,
+	JoinColumn,
+	ManyToOne,
 } from 'typeorm';
 import { UserType } from './user-type.entity';
-import { CommonEntity } from 'src/common/entity/common.entity';
 
 @Entity()
 export class User extends CommonEntity {
-  @Column()
-  name: string;
+    @Column()
+    name: string;
 
-  @Column()
-  lastName: string;
+    @Column()
+    lastName: string;
 
-  @Column()
-  password: string;
-  @Column({ unique: true })
-  email: string;
-  @Column({ nullable: true })
-  address: string;
+    @Column()
+    @Exclude()
+    password: string;
 
-  @CreateDateColumn()
-  birthday: Date;
+    @Column({ unique: true })
+    email: string;
+    @Column({ nullable: true })
+    address: string;
 
-  @ManyToOne(() => UserType, (userType) => userType.users)
-  @JoinColumn({ referencedColumnName: 'id', name: 'usertype' })
-  usertype: UserType;
+    @CreateDateColumn()
+    birthday: Date;
+
+    @ManyToOne(() => UserType, (userType) => userType.users)
+    @JoinColumn({ referencedColumnName: 'id', name: 'usertype' })
+    // @Transform((role) => role.type)
+    usertype: UserType;
 }
