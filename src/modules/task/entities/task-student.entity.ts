@@ -7,30 +7,33 @@ import { CommonEntity } from 'src/common/entity/common.entity';
 
 // Task Answer Student
 
+/**
+ *
+ */
 @Entity()
 export class TaskStudent extends CommonEntity {
-  @ManyToOne(() => TeacherCourseStudent)
-  teacherCourseStudent: TeacherCourseStudent;
+    @ManyToOne(() => TeacherCourseStudent)
+    teacherCourseStudent: TeacherCourseStudent;
 
-  @ManyToMany(() => FileEnt)
-  @JoinTable({
-    name: 'file_task_student',
-    joinColumn: {
-      name: 'taskStudent',
-      referencedColumnName: 'id',
-      foreignKeyConstraintName: 'FK__task_student',
-    },
-    inverseJoinColumn: {
-      name: 'file',
-      referencedColumnName: 'id',
-      foreignKeyConstraintName: 'FK__file',
-    },
-  })
-  files: FileEnt[];
+    @ManyToMany(() => FileEnt)
+    @JoinTable({
+        name: 'file_task_student',
+        joinColumn: {
+            name: 'taskStudent',
+            referencedColumnName: 'id',
+            foreignKeyConstraintName: 'FK__task_student',
+        },
+        inverseJoinColumn: {
+            name: 'file',
+            referencedColumnName: 'id',
+            foreignKeyConstraintName: 'FK__file',
+        },
+    })
+    files: FileEnt[];
 
-  @ManyToOne(() => Task, (task) => task.answers)
-  task: Task;
+    @ManyToOne(() => Task, (task) => task.answers)
+    task: Task;
 
-  @Column()
-  grade: number;
+    @Column()
+    grade: number;
 }

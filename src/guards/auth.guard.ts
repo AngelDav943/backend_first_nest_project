@@ -9,6 +9,9 @@ import { Request } from 'express';
 import { Observable } from 'rxjs';
 import { JwtConstants } from 'src/common/constants/jwt-secret';
 
+/**
+ *
+ */
 @Injectable()
 export class AuthGuard implements CanActivate {
     constructor(private jwtService: JwtService) {}
@@ -18,11 +21,19 @@ export class AuthGuard implements CanActivate {
      * @param {Request} request - Request
      * @returns {string} - Token
      */
+    /**
+     *
+     * @param request
+     */
     private extractTokenFromHeader(request: Request): string | undefined {
         const [type, token] = request.headers.authorization?.split(' ') ?? [];
         return type == 'Bearer' ? token : undefined;
     }
 
+    /**
+     *
+     * @param context
+     */
     canActivate(
         context: ExecutionContext,
     ): boolean | Promise<boolean> | Observable<boolean> {

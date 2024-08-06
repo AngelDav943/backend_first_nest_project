@@ -1,14 +1,17 @@
 import { Exclude } from 'class-transformer';
 import { CommonEntity } from 'src/common/entity/common.entity';
 import {
-	Column,
-	CreateDateColumn,
-	Entity,
-	JoinColumn,
-	ManyToOne,
+    Column,
+    CreateDateColumn,
+    Entity,
+    JoinColumn,
+    ManyToOne,
 } from 'typeorm';
 import { UserType } from './user-type.entity';
 
+/**
+ *
+ */
 @Entity()
 export class User extends CommonEntity {
     @Column()

@@ -5,9 +5,12 @@ import { Forum } from './entities/forum.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ForumMessage } from './entities/forum-message.entity';
 
+/**
+ *
+ */
 @Module({
-  imports: [TypeOrmModule.forFeature([Forum, ForumMessage])],
-  controllers: [ForumController],
-  providers: [ForumService],
+    imports: [TypeOrmModule.forFeature([Forum, ForumMessage])],
+    controllers: [ForumController],
+    providers: [ForumService],
 })
 export class ForumModule {}

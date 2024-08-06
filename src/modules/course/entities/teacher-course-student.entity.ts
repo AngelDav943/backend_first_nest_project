@@ -3,6 +3,9 @@ import { User } from 'src/modules/user/entities/user.entity';
 import { Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { TeacherCourse } from './teacher-course.entity';
 
+/**
+ *
+ */
 @Entity()
 export class TeacherCourseStudent extends CommonEntity {
     @ManyToOne(() => TeacherCourse)

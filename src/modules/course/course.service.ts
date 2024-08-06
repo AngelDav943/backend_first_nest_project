@@ -9,6 +9,9 @@ import { CourseState } from './entities/course-state.entity';
 import { Course } from './entities/course.entity';
 import { TeacherCourse } from './entities/teacher-course.entity';
 
+/**
+ *
+ */
 @Injectable()
 export class CourseService {
     constructor(
@@ -20,11 +23,19 @@ export class CourseService {
         private teacherCourseRepository: Repository<TeacherCourse>,
     ) {}
 
+    /**
+     *
+     * @param createCourseDto
+     */
     async create(createCourseDto: CreateCourseDto) {
         const createdCourse = await this.courseRepository.save(createCourseDto);
         return createdCourse.id;
     }
 
+    /**
+     *
+     * @param createTeacherCourseDto
+     */
     async createTeacherCourse(createTeacherCourseDto: CreateTeacherCourseDto) {
         const createdTeacherCourse = await this.teacherCourseRepository.save(
             createTeacherCourseDto,
@@ -32,6 +43,10 @@ export class CourseService {
         return createdTeacherCourse.id;
     }
 
+    /**
+     *
+     * @param where
+     */
     findAll(where?: FindOptionsWhere<Course> | FindOptionsWhere<Course>[]) {
         return this.courseRepository.find({
             where,
@@ -45,6 +60,10 @@ export class CourseService {
         });
     }
 
+    /**
+     *
+     * @param id
+     */
     findOne(id: number) {
         return this.courseRepository.findOne({
             where: { id },
@@ -52,10 +71,20 @@ export class CourseService {
         });
     }
 
+    /**
+     *
+     * @param id
+     * @param updateCourseDto
+     */
     update(id: number, updateCourseDto: UpdateCourseDto) {
         return this.courseRepository.update(id, updateCourseDto);
     }
 
+    /**
+     *
+     * @param id
+     * @param updateTeacherCourseDto
+     */
     updateTeacherCourse(
         id: number,
         updateTeacherCourseDto: UpdateTeacherCourseDto,
@@ -63,14 +92,25 @@ export class CourseService {
         return this.teacherCourseRepository.update(id, updateTeacherCourseDto);
     }
 
+    /**
+     *
+     * @param id
+     */
     remove(id: number) {
         return this.courseRepository.delete(id);
     }
 
+    /**
+     *
+     * @param id
+     */
     removeTeacherCourse(id: number) {
         return this.teacherCourseRepository.delete(id);
     }
 
+    /**
+     *
+     */
     findStates() {
         return this.courseStateRepository.find({
             relations: {
@@ -79,6 +119,9 @@ export class CourseService {
         });
     }
 
+    /**
+     *
+     */
     findTeacherCourses() {
         return this.teacherCourseRepository.find({
             relations: {
@@ -93,6 +136,10 @@ export class CourseService {
         });
     }
 
+    /**
+     *
+     * @param id
+     */
     findOneTeacherCourse(id: number) {
         return this.teacherCourseRepository.findOne({
             relations: ['course', 'teacher', 'students'],

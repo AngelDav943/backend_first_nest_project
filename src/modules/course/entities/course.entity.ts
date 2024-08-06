@@ -4,6 +4,9 @@ import { Forum } from 'src/modules/forum/entities/forum.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { CourseState } from './course-state.entity';
 
+/**
+ *
+ */
 @Entity()
 export class Course extends CommonEntity {
     @Column()
