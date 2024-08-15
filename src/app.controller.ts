@@ -9,7 +9,7 @@ export class AppController {
     constructor(private readonly appService: AppService) {}
 
     /**
-     *
+     * @returns Returns an empty object
      */
     @Get()
     getIndex() {

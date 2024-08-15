@@ -19,8 +19,9 @@ export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
     /**
-     *
-     * @param loginDto
+     * Logs in a user
+     * @param loginDto Data needed for logging in
+     * @returns If correctly logged in it will return the user's data with a token for authentication
      */
     @UseInterceptors(ClassSerializerInterceptor)
     @Post('login')
@@ -29,8 +30,9 @@ export class AuthController {
     }
 
     /**
-     *
-     * @param createUser
+     * Registers a new user
+     * @param createUser Data needed to create a new user
+     * @returns If successful it will return the user with a token for authentication
      */
     @Post('register')
     register(@Body() createUser: CreateUserDto) {
@@ -38,8 +40,9 @@ export class AuthController {
     }
 
     /**
-     *
-     * @param str
+     * Hashes a string
+     * @param str string
+     * @returns Hashed string
      */
     @Get('hash/:str')
     hashify(@Param('str') str: string) {

@@ -25,8 +25,9 @@ export class CourseController {
     constructor(private readonly courseService: CourseService) {}
 
     /**
-     *
-     * @param createCourseDto
+     * Creates a new course
+     * @param createCourseDto Information of the new course
+     * @returns Returns the id of the newly created course
      */
     @Post()
     create(@Body() createCourseDto: CreateCourseDto) {
@@ -34,8 +35,9 @@ export class CourseController {
     }
 
     /**
-     *
-     * @param createTeacherCourseDto
+     * Creates an new teacher course
+     * @param createTeacherCourseDto Information of the new teacher course
+     * @returns Returns the id of the new teacher course
      */
     @Post('teacherCourses')
     createTeacherCourse(
@@ -45,7 +47,8 @@ export class CourseController {
     }
 
     /**
-     *
+     * Finds all the courses
+     * @returns A list of the courses
      */
     @Get()
     @UseGuards(AuthGuard)
@@ -54,8 +57,9 @@ export class CourseController {
     }
 
     /**
-     *
-     * @param request
+     * Finds all the courses that the user has joined
+     * @param request http request
+     * @returns A list of the courses
      */
     @Get('joined')
     @UseGuards(AuthGuard)
@@ -67,7 +71,8 @@ export class CourseController {
     }
 
     /**
-     *
+     * Finds all the states of a course
+     * @returns A list of states
      */
     @Get('states')
     findStates() {
@@ -75,7 +80,8 @@ export class CourseController {
     }
 
     /**
-     *
+     * Finds all the teacher courses
+     * @returns A list of teacher courses
      */
     @Get('teacherCourses')
     findTeacherCourses() {
@@ -83,8 +89,9 @@ export class CourseController {
     }
 
     /**
-     *
-     * @param id
+     * Finds a specific teacher course
+     * @param id Teacher course to find
+     * @returns A list of teacher courses
      */
     @Get('teacherCourses/:id')
     findOneTeacherCourse(@Param('id') id: string) {
@@ -92,8 +99,9 @@ export class CourseController {
     }
 
     /**
-     *
-     * @param id
+     * Finds a specific course
+     * @param id Course to find
+     * @returns A course
      */
     @Get(':id')
     findOne(@Param('id') id: string) {
@@ -101,9 +109,10 @@ export class CourseController {
     }
 
     /**
-     *
-     * @param id
-     * @param updateCourseDto
+     * Updates an existing course
+     * @param id Course to update
+     * @param updateCourseDto Information to update
+     * @returns A result that indicates if the update was successful
      */
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto) {
@@ -111,8 +120,9 @@ export class CourseController {
     }
 
     /**
-     *
-     * @param id
+     * Removes a course
+     * @param id Course to remove
+     * @returns A result indicating if the remove was successfull
      */
     @Delete(':id')
     remove(@Param('id') id: string) {
@@ -120,9 +130,10 @@ export class CourseController {
     }
 
     /**
-     *
-     * @param id
-     * @param updateTeacherCourseDto
+     * Updates a teacher course
+     * @param id Teacher course to update
+     * @param updateTeacherCourseDto Information to update
+     * @returns A result that indicates if the update was successful
      */
     @Patch('teacherCourses/:id')
     updateTeacherCourse(
@@ -136,8 +147,9 @@ export class CourseController {
     }
 
     /**
-     *
-     * @param id
+     * Finds a specific teacher course
+     * @param id Teacher course to find
+     * @returns A list of teacher courses
      */
     @Delete('teacherCourses/:id')
     removeTeacherCourse(@Param('id') id: string) {

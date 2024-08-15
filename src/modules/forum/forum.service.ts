@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { CreateForumDto } from './dto/create-forum.dto';
-import { UpdateForumDto } from './dto/update-forum.dto';
-import { Forum } from './entities/forum.entity';
-import { ForumMessage } from './entities/forum-message.entity';
-import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateForumMessageDto } from './dto/create-forum-message.dto';
+import { CreateForumDto } from './dto/create-forum.dto';
 import { UpdateForumMessageDto } from './dto/update-forum-message.dto';
+import { UpdateForumDto } from './dto/update-forum.dto';
+import { ForumMessage } from './entities/forum-message.entity';
+import { Forum } from './entities/forum.entity';
 
 /**
  *
@@ -21,8 +21,9 @@ export class ForumService {
     ) {}
 
     /**
-     *
-     * @param createForumDto
+     * Creates a new forum
+     * @param createForumDto Minimal information needed to create the forum
+     * @returns Returns the id of the new forum
      */
     async create(createForumDto: CreateForumDto) {
         const createdForum = await this.forumRepository.save(createForumDto);
@@ -30,8 +31,9 @@ export class ForumService {
     }
 
     /**
-     *
-     * @param createMessageDto
+     * Creates a message inside a specific forum
+     * @param createMessageDto Message information
+     * @returns Returns the id of the new message
      */
     async sendMessage(createMessageDto: CreateForumMessageDto) {
         const createdMessage =
@@ -40,7 +42,8 @@ export class ForumService {
     }
 
     /**
-     *
+     * Finds all the existing forums in the database
+     * @returns A list of forums
      */
     findAll() {
         return this.forumRepository.find({
@@ -49,8 +52,9 @@ export class ForumService {
     }
 
     /**
-     *
-     * @param forumID
+     * Gives all the existing messages inside a forum
+     * @param forumID Forum ID
+     * @returns A list of messages
      */
     findAllMessages(forumID: number) {
         return this.forumMessageRepository.find({
@@ -62,8 +66,9 @@ export class ForumService {
     }
 
     /**
-     *
-     * @param id
+     * Gives a specific forum
+     * @param id ID of the forum to find
+     * @returns A forum
      */
     findOne(id: number) {
         return this.forumRepository.findOne({
@@ -77,9 +82,10 @@ export class ForumService {
     }
 
     /**
-     *
-     * @param id
-     * @param updateForumDto
+     * Updates the information of a forum
+     * @param id Forum to update
+     * @param updateForumDto New information
+     * @returns Returns a boolean indicating if the action was successful
      */
     async update(id: number, updateForumDto: UpdateForumDto) {
         const response = await this.forumRepository.update(id, updateForumDto);
@@ -87,8 +93,9 @@ export class ForumService {
     }
 
     /**
-     *
-     * @param id
+     * Removes a forum
+     * @param id Forum to remove
+     * @returns Returns a boolean indicating whether the action was successfull
      */
     async remove(id: number) {
         const response = await this.forumRepository.delete(id);
@@ -96,9 +103,10 @@ export class ForumService {
     }
 
     /**
-     *
-     * @param id
-     * @param updateForumMessageDto
+     * Updates the information of an existing message
+     * @param id ID of the message to update
+     * @param updateForumMessageDto New information
+     * @returns Returns a boolean indicating if the action affected the database
      */
     async updateMessage(
         id: number,
@@ -112,8 +120,9 @@ export class ForumService {
     }
 
     /**
-     *
-     * @param id
+     * Removes a message from the database
+     * @param id Message to delete
+     * @returns A boolean indicating if it was successful on the delete action
      */
     async removeMessage(id: number) {
         const response = await this.forumMessageRepository.delete(id);

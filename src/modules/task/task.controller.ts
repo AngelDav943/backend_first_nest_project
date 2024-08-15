@@ -1,15 +1,15 @@
 import {
-    Controller,
-    Get,
-    Post,
     Body,
-    Patch,
-    Param,
+    Controller,
     Delete,
+    Get,
+    Param,
+    Patch,
+    Post,
 } from '@nestjs/common';
-import { TaskService } from './task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
+import { TaskService } from './task.service';
 
 /**
  *
@@ -19,8 +19,9 @@ export class TaskController {
     constructor(private readonly taskService: TaskService) {}
 
     /**
-     *
-     * @param createTaskDto
+     * Creates a new task
+     * @param createTaskDto Data needed for the new task
+     * @returns Returns the id of the new task
      */
     @Post()
     create(@Body() createTaskDto: CreateTaskDto) {
@@ -28,7 +29,8 @@ export class TaskController {
     }
 
     /**
-     *
+     * Finds all the tasks in the database
+     * @returns A list of tasks
      */
     @Get()
     findAll() {
@@ -36,7 +38,7 @@ export class TaskController {
     }
 
     /**
-     *
+     * @returns A list of answers
      */
     @Get('/answers')
     findAnswers() {
@@ -44,8 +46,8 @@ export class TaskController {
     }
 
     /**
-     *
-     * @param id
+     * @param id ID of the task to find
+     * @returns A specific task
      */
     @Get(':id')
     findOne(@Param('id') id: string) {
@@ -53,9 +55,9 @@ export class TaskController {
     }
 
     /**
-     *
-     * @param id
-     * @param updateTaskDto
+     * @param id ID of the existing task
+     * @param updateTaskDto New data to update
+     * @returns Returns true if successfull
      */
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
@@ -63,8 +65,9 @@ export class TaskController {
     }
 
     /**
-     *
-     * @param id
+     * Removes a task from the database
+     * @param id ID of the existing task
+     * @returns Returns a boolean indicating whether the task was successfully deleted
      */
     @Delete(':id')
     remove(@Param('id') id: string) {

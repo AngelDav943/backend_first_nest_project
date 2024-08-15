@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
-import { Repository } from 'typeorm';
-import { Task } from './entities/task.entity';
 import { TaskStudent } from './entities/task-student.entity';
-import { InjectRepository } from '@nestjs/typeorm';
+import { Task } from './entities/task.entity';
 
 /**
  *
@@ -19,8 +19,9 @@ export class TaskService {
     ) {}
 
     /**
-     *
-     * @param createTaskDto
+     * Creates a new task
+     * @param createTaskDto Data needed for the new task
+     * @returns Returns the id of the new task
      */
     async create(createTaskDto: CreateTaskDto) {
         const createdTask = await this.taskRepository.save(createTaskDto);
@@ -28,7 +29,8 @@ export class TaskService {
     }
 
     /**
-     *
+     * Finds all the tasks in the database
+     * @returns A list of tasks
      */
     findAll() {
         return this.taskRepository.find({
@@ -48,7 +50,7 @@ export class TaskService {
     }
 
     /**
-     *
+     * @returns A list of answers
      */
     findAllAnswers() {
         return this.taskStudentRepository.find({
@@ -63,8 +65,8 @@ export class TaskService {
     }
 
     /**
-     *
-     * @param id
+     * @param id ID of the task to find
+     * @returns A specific task
      */
     findOne(id: number) {
         return this.taskRepository.findOne({
@@ -80,9 +82,9 @@ export class TaskService {
     }
 
     /**
-     *
-     * @param id
-     * @param updateTaskDto
+     * @param id ID of the existing task
+     * @param updateTaskDto New data to update
+     * @returns Returns true if successfull
      */
     async update(id: number, updateTaskDto: UpdateTaskDto) {
         const response = await this.taskRepository.update(id, updateTaskDto);
@@ -90,8 +92,9 @@ export class TaskService {
     }
 
     /**
-     *
-     * @param id
+     * Removes a task from the database
+     * @param id ID of the existing task
+     * @returns Returns a boolean indicating whether the task was successfully deleted
      */
     async remove(id: number) {
         const response = await this.taskRepository.delete(id);

@@ -1,15 +1,15 @@
 import {
-    Controller,
-    Get,
-    Post,
     Body,
-    Patch,
-    Param,
+    Controller,
     Delete,
+    Get,
+    Param,
+    Patch,
+    Post,
 } from '@nestjs/common';
-import { FileService } from './file.service';
 import { CreateFileDto } from './dto/create-file.dto';
 import { UpdateFileDto } from './dto/update-file.dto';
+import { FileService } from './file.service';
 
 /**
  *
@@ -19,8 +19,9 @@ export class FileController {
     constructor(private readonly fileService: FileService) {}
 
     /**
-     *
-     * @param createFileDto
+     * Creates a new file
+     * @param createFileDto Information needed to create the file
+     * @returns Created file's id
      */
     @Post()
     create(@Body() createFileDto: CreateFileDto) {
@@ -28,7 +29,8 @@ export class FileController {
     }
 
     /**
-     *
+     * Gives all files inside the database
+     * @returns A list of files
      */
     @Get()
     findAll() {
@@ -36,8 +38,9 @@ export class FileController {
     }
 
     /**
-     *
-     * @param id
+     * Finds a specific file
+     * @param id id needed to find file
+     * @returns Returns the existing file with the matching id
      */
     @Get(':id')
     findOne(@Param('id') id: string) {
@@ -45,9 +48,10 @@ export class FileController {
     }
 
     /**
-     *
-     * @param id
-     * @param updateFileDto
+     * Updates an existing file
+     * @param id File to update
+     * @param updateFileDto Information to update
+     * @returns A boolean indicating whether the file was successfully updated
      */
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateFileDto: UpdateFileDto) {
@@ -55,8 +59,9 @@ export class FileController {
     }
 
     /**
-     *
-     * @param id
+     * Removes an existing file
+     * @param id File to remove
+     * @returns A boolean indicating whether the file was successfuly removed
      */
     @Delete(':id')
     remove(@Param('id') id: string) {

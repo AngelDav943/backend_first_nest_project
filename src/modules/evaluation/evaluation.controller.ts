@@ -1,15 +1,15 @@
 import {
-    Controller,
-    Get,
-    Post,
     Body,
-    Patch,
-    Param,
+    Controller,
     Delete,
+    Get,
+    Param,
+    Patch,
+    Post,
 } from '@nestjs/common';
-import { EvaluationService } from './evaluation.service';
 import { CreateEvaluationDto } from './dto/create-evaluation.dto';
 import { UpdateEvaluationDto } from './dto/update-evaluation.dto';
+import { EvaluationService } from './evaluation.service';
 
 /**
  *
@@ -19,8 +19,9 @@ export class EvaluationController {
     constructor(private readonly evaluationService: EvaluationService) {}
 
     /**
-     *
-     * @param createEvaluationDto
+     * Creates an new evaluation
+     * @param createEvaluationDto Information needed to create a new evaluation
+     * @returns Gives the id of the new evaluation
      */
     @Post()
     create(@Body() createEvaluationDto: CreateEvaluationDto) {
@@ -28,7 +29,8 @@ export class EvaluationController {
     }
 
     /**
-     *
+     * Finds all the evaluations in the database
+     * @returns A list of evaluations
      */
     @Get()
     findAll() {
@@ -36,8 +38,9 @@ export class EvaluationController {
     }
 
     /**
-     *
-     * @param id
+     * Finds a specific evaluation
+     * @param id Evaluation to find
+     * @returns An evaluation
      */
     @Get(':id')
     findOne(@Param('id') id: string) {
@@ -45,9 +48,10 @@ export class EvaluationController {
     }
 
     /**
-     *
-     * @param id
-     * @param updateEvaluationDto
+     * Updates an existing evaluation
+     * @param id Evaluation to update
+     * @param updateEvaluationDto Information to update
+     * @returns Gives a boolean indicating whether the update action was successfull
      */
     @Patch(':id')
     update(
@@ -58,8 +62,9 @@ export class EvaluationController {
     }
 
     /**
-     *
-     * @param id
+     * Removes an existing evaluation
+     * @param id Evaluation to remove
+     * @returns Gives a boolean indicating whether the remove action was successfull
      */
     @Delete(':id')
     remove(@Param('id') id: string) {

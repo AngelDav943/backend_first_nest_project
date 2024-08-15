@@ -16,14 +16,10 @@ import { JwtConstants } from 'src/common/constants/jwt-secret';
 export class AuthGuard implements CanActivate {
     constructor(private jwtService: JwtService) {}
 
-    /*
-     * Extracts the token from the request's header
-     * @param {Request} request - Request
-     * @returns {string} - Token
-     */
     /**
-     *
-     * @param request
+     * Extracts the token from the request's header
+     * @param request - Request
+     * @returns - Token
      */
     private extractTokenFromHeader(request: Request): string | undefined {
         const [type, token] = request.headers.authorization?.split(' ') ?? [];
@@ -31,14 +27,16 @@ export class AuthGuard implements CanActivate {
     }
 
     /**
-     *
-     * @param context
+     * Checks whether or not the current request is allowed to proceed
+     * @param context Provides details about the current request
+     * @returns A value indicating whether or not the current request can proceed
      */
     canActivate(
         context: ExecutionContext,
     ): boolean | Promise<boolean> | Observable<boolean> {
         const request = context.switchToHttp().getRequest();
-        const token = this.extractTokenFromHeader(request);
+        // const token = this.extractTokenFromHeader(request);
+        const token = request.cookies['token'];
 
         if (!token) throw new UnauthorizedException();
 
