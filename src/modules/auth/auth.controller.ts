@@ -5,8 +5,11 @@ import {
     Get,
     Param,
     Post,
+    UseGuards,
     UseInterceptors,
 } from '@nestjs/common';
+import { LocalAuthGuard } from 'src/guards/local-auth.guard';
+import { AuthInterceptor } from 'src/interceptors/auth.interceptor';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
@@ -23,8 +26,10 @@ export class AuthController {
      * @param loginDto Data needed for logging in
      * @returns If correctly logged in it will return the user's data with a token for authentication
      */
-    @UseInterceptors(ClassSerializerInterceptor)
     @Post('login')
+    @UseInterceptors(ClassSerializerInterceptor)
+    @UseInterceptors(AuthInterceptor)
+    @UseGuards(LocalAuthGuard)
     login(@Body() loginDto: LoginDto) {
         return this.authService.login(loginDto);
     }
