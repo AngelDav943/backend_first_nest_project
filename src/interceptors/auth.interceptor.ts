@@ -4,8 +4,7 @@ import {
     Injectable,
     NestInterceptor,
 } from '@nestjs/common';
-import { Response } from 'express';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 /**
  *
@@ -21,13 +20,13 @@ export class AuthInterceptor implements NestInterceptor {
      * @returns Returns the header with a token cookie
      */
     intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-        const res = context.switchToHttp().getResponse<Response>();
-
         return next.handle().pipe(
-            tap(async ({ token }) => {
-                res.cookie('token', token, {});
-            }),
-            map(({ user }) => {
+            map(({ user, token, refresh }) => {
+                const response = context.switchToHttp().getResponse();
+                if (token) {
+                    response.cookie('token', token, {});
+                    response.cookie('refresh', refresh, {});
+                }
                 return user;
             }),
         );
