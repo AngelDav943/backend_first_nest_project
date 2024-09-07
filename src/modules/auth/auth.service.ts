@@ -7,7 +7,11 @@ import { Repository } from 'typeorm';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { User } from '../user/entities/user.entity';
 import { UserService } from '../user/user.service';
-import { AuthRefreshTokenPayload, LoginResponseDto } from './dto/login.dto';
+import {
+    AuthRefreshTokenPayload,
+    AuthTokenPayloadValidateInfo,
+    LoginResponseDto,
+} from './dto/login.dto';
 import { AuthRefreshToken } from './entities/authRefreshToken.entity';
 
 /**
@@ -71,19 +75,19 @@ export class AuthService {
 
     /**
      * Creates a new refresh token
-     * @param user - User information
+     * @param userInfo - User information
      * @param currentRefreshToken - The current refresh token used
      * @param currentRefreshTokenExpiresAt - Fecha de expiración del token de refresco actual
      * @returns - Nuevo token de refresco
      */
     async generateRefreshToken(
-        user: User,
+        userInfo: AuthTokenPayloadValidateInfo,
         currentRefreshToken?: string,
         currentRefreshTokenExpiresAt?: Date,
     ): Promise<string> {
         const refreshPayload: AuthRefreshTokenPayload = {
-            id: user.id,
-            email: user.email,
+            id: userInfo.id,
+            email: userInfo.email,
         };
         const newRefreshToken = this.jwtService.sign(refreshPayload, {
             secret: JwtConstants.refresh,
@@ -94,7 +98,7 @@ export class AuthService {
             if (
                 await this.isRefreshTokenBlackListed(
                     currentRefreshToken,
-                    user.id,
+                    userInfo.id,
                 )
             ) {
                 throw new UnauthorizedException('Invalid refresh token.');
@@ -103,7 +107,7 @@ export class AuthService {
             await this.authRefreshTokenRepository.insert({
                 token: currentRefreshToken,
                 expiration: currentRefreshTokenExpiresAt,
-                userId: user.id,
+                userId: userInfo.id,
             });
         }
 
@@ -111,32 +115,32 @@ export class AuthService {
     }
 
     /**
-     * Metodo para validar si un token de refresco está en la lista negra
-     * @param token - Token de refresco
-     * @param userId - Id del usuario
-     * @returns - Validación si el token esta en la lista negra
+     * Verifies if a refresh token is in the blacklist
+     * @param token - Refresh token
+     * @param userId - User's id
+     * @returns - Result if the refresh token exists inside the blacklist
      */
     private isRefreshTokenBlackListed(token: string, userId: number) {
         return this.authRefreshTokenRepository.existsBy({ token, userId });
     }
 
     /**
-     * Metodo para generar un par de tokens
-     * @param user - Datos del usuario
+     * Creates a token pair
+     * @param userInfo - User data
      * @param currentRefreshToken - Token de refresco actual
      * @param currentRefreshTokenExpiresAt - Fecha de expiración del token de refresco actual
      * @returns - Par de tokens
      */
     async generateTokenPair(
-        user: User,
+        userInfo: AuthTokenPayloadValidateInfo,
         currentRefreshToken?: string,
         currentRefreshTokenExpiresAt?: Date,
     ): Promise<Omit<LoginResponseDto, 'user'>> {
-        const payload = { email: user.email, sub: user.id };
+        const payload = { email: userInfo.email, sub: userInfo.id };
         return {
             token: this.jwtService.sign(payload),
             refresh: await this.generateRefreshToken(
-                user,
+                userInfo,
                 currentRefreshToken,
                 currentRefreshTokenExpiresAt,
             ),

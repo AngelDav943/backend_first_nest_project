@@ -157,4 +157,20 @@ export class CourseService {
             where: { id },
         });
     }
+
+    /**
+     * Finds a list of teacher courses that matches the request
+     * @param where Find request
+     * @returns A list of teacher courses
+     */
+    findAllTeacherCourses(
+        where?:
+            | FindOptionsWhere<TeacherCourse>
+            | FindOptionsWhere<TeacherCourse>[],
+    ) {
+        return this.teacherCourseRepository.find({
+            relations: ['course', 'teacher', 'students'],
+            where,
+        });
+    }
 }

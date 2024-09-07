@@ -3,5 +3,5 @@
  */
 export class JwtConstants {
     static secret = 'firstnest-backend-project';
-    static refresh = '';
+    static refresh = 'firstnest-refresh-constant';
 }

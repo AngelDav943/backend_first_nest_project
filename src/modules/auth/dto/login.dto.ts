@@ -27,7 +27,7 @@ export class AuthTokenPayload {
 /**
  *
  */
-export class AuthTokenPayloadInfo {
+export class AuthTokenPayloadValidateInfo {
     email: string;
     id: number;
 }
@@ -36,7 +36,7 @@ export class AuthTokenPayloadInfo {
  *
  */
 export class AuthTokenPayloadValidate {
-    info: AuthTokenPayloadInfo;
+    info: AuthTokenPayloadValidateInfo;
     expiration?: Date;
 }
 
