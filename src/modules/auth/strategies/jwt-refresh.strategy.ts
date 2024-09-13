@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { JwtConstants } from 'src/common/constants/jwt-secret';
-import { UserService } from 'src/modules/user/user.service';
 import { AuthTokenPayload } from '../dto/login.dto';
+import { ConfigService } from '@nestjs/config';
+import { Request } from 'express';
 
 /**
  *
@@ -13,12 +13,31 @@ export class JwtRefreshStrategy extends PassportStrategy(
     Strategy,
     'jwt-refresh',
 ) {
-    constructor(private userService: UserService) {
+    constructor(configService: ConfigService) {
         super({
-            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+            jwtFromRequest: ExtractJwt.fromExtractors([
+                JwtRefreshStrategy.extractJWT,
+                ExtractJwt,
+            ]),
             ignoreExpiration: false,
-            secretOrKey: JwtConstants.refresh,
+            secretOrKey: configService.get<string>('JWT_REFRESH_SECRET'),
         });
+    }
+
+    /**
+     * Method to extract the token from the request cookie
+     * @param req - Request
+     * @returns - Token
+     */
+    private static extractJWT(req: Request): string | null {
+        if (
+            req.cookies &&
+            'refresh' in req.cookies &&
+            req.cookies.refresh.length > 0
+        ) {
+            return req.cookies.refresh;
+        }
+        return null;
     }
 
     /**

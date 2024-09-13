@@ -10,6 +10,7 @@ import { FileModule } from './modules/file/file.module';
 import { ForumModule } from './modules/forum/forum.module';
 import { TaskModule } from './modules/task/task.module';
 import { UserModule } from './modules/user/user.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 /**
  *
@@ -18,15 +19,21 @@ import { UserModule } from './modules/user/user.module';
     imports: [
         UserModule,
         CourseModule,
-        TypeOrmModule.forRoot({
-            type: 'mysql',
-            host: 'localhost',
-            port: 3306,
-            username: 'root',
-            password: 'root',
-            database: 'backend1',
-            autoLoadEntities: true,
-            // synchronize: true,
+        ConfigModule.forRoot({
+            isGlobal: true,
+        }),
+        TypeOrmModule.forRootAsync({
+            useFactory: (configService: ConfigService) => ({
+                type: 'mysql',
+                host: configService.get<string>('DATABASE_HOST'),
+                port: configService.get<number>('DATABASE_PORT'),
+                username: configService.get<string>('DATABASE_USER'),
+                password: configService.get<string>('DATABASE_PASS'),
+                database: configService.get<string>('DATABASE_NAME'),
+                autoLoadEntities: true,
+                // synchronize: true,
+            }),
+            inject: [ConfigService],
         }),
         ForumModule,
         EvaluationModule,
